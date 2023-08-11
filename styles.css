@@ -88,6 +88,20 @@ footer a:hover {
 
 .pacman-container {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 50%; /* Position it vertically at 50% of the parent container */
+    right: 20px; /* 20px from the right edge */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+}
+
+/* Make the Pac-Man canvas slightly smaller than the profile picture */
+#pacman-canvas {
+    width: 120px;
+    height: 120px;
+}
+
+/* Add media query for responsive design */
+@media (max-width: 600px) {
+    .pacman-container {
+        display: none; /* Hide the Pac-Man animation on small screens */
+    }
 }
