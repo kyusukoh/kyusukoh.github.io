@@ -2,38 +2,44 @@ const canvas = document.getElementById("pacman-canvas");
 const ctx = canvas.getContext("2d");
 
 const pacSize = 60;
-let pacX = canvas.width - pacSize;
+const pacHalfSize = pacSize / 2;
+let pacX = canvas.width / 2;
 let pacY = canvas.height / 2;
-let pacAngle = 0;
 let pacMouthOpen = true;
-let pacDirection = "right";
+let pacDirectionX = 1;
+let pacDirectionY = 1;
+
+function getRandomDirection() {
+    const directions = [-1, 1];
+    return directions[Math.floor(Math.random() * directions.length)];
+}
 
 function drawPacMan() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (pacDirection === "right") {
-        pacX += 2; // Move Pac-Man to the right
-    } else {
-        pacX -= 2; // Move Pac-Man to the left
+    pacX += pacDirectionX * 2; // Move Pac-Man along the X-axis
+    pacY += pacDirectionY * 2; // Move Pac-Man along the Y-axis
+
+    // Change direction when Pac-Man hits canvas edges
+    if (pacX + pacHalfSize > canvas.width || pacX - pacHalfSize < 0) {
+        pacDirectionX = getRandomDirection();
     }
+    if (pacY + pacHalfSize > canvas.height || pacY - pacHalfSize < 0) {
+        pacDirectionY = getRandomDirection();
+    }
+
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.beginPath();
-    ctx.arc(pacX, pacY, pacSize, 0.2 * Math.PI, 1.8 * Math.PI, pacMouthOpen);
-    ctx.lineTo(pacX, pacY);
+    ctx.moveTo(pacX, pacY - pacHalfSize);
+    ctx.lineTo(pacX + pacHalfSize, pacY + pacHalfSize);
+    ctx.lineTo(pacX - pacHalfSize, pacY + pacHalfSize);
+    ctx.closePath();
     ctx.fillStyle = "yellow";
     ctx.fill();
-    ctx.closePath();
 
-    pacAngle += 0.1;
     pacMouthOpen = !pacMouthOpen;
-
-    if (pacX > canvas.width) {
-        pacX = -pacSize; // Reset Pac-Man position to the left
-        pacDirection = "right";
-    } else if (pacX < -pacSize) {
-        pacX = canvas.width; // Reset Pac-Man position to the right
-        pacDirection = "left";
-    }
 
     requestAnimationFrame(drawPacMan);
 }
