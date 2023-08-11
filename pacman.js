@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 
 const pacSize = 60;
 const pacHalfSize = pacSize / 2;
-let pacX = 800; // Position Pac-Man canvas a bit more to the left
+let pacX = canvas.width * 3 / 4;
 let pacY = canvas.height / 2;
 let pacMouthOpen = true;
 let pacDirectionX = 1;
