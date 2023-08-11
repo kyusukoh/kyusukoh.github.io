@@ -6,8 +6,8 @@ const pacHalfSize = pacSize / 2;
 let pacX = canvas.width * 3 / 4;
 let pacY = canvas.height / 2;
 let pacMouthOpen = true;
-let pacDirectionX = 1;
-let pacDirectionY = 1;
+let pacDirectionX = getRandomDirection(); // Initialize with random X direction
+let pacDirectionY = getRandomDirection(); // Initialize with random Y direction
 
 function getRandomDirection() {
     const directions = [-1, 1];
