@@ -85,3 +85,9 @@ footer a {
 footer a:hover {
     color: #007BFF;
 }
+
+.pacman-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
