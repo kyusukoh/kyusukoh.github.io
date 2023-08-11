@@ -18,8 +18,9 @@ header {
 
 .profile-picture {
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    max-width: 30%;
+    max-height: 30%
+
     object-fit: cover;
 }
 
