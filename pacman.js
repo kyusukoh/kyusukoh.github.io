@@ -3,11 +3,12 @@ const ctx = canvas.getContext("2d");
 
 const pacSize = 60;
 const pacHalfSize = pacSize / 2;
-let pacX = canvas.width * 3 / 4;
+const edgeBuffer = pacHalfSize + 10; // Buffer to keep Pac-Man away from the edges
+let pacX = canvas.width / 2;
 let pacY = canvas.height / 2;
 let pacMouthOpen = true;
-let pacDirectionX = getRandomDirection(); // Initialize with random X direction
-let pacDirectionY = getRandomDirection(); // Initialize with random Y direction
+let pacDirectionX = getRandomDirection();
+let pacDirectionY = getRandomDirection();
 
 function getRandomDirection() {
     const directions = [-1, 1];
@@ -17,15 +18,15 @@ function getRandomDirection() {
 function drawPacMan() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    pacX += pacDirectionX * 2; // Move Pac-Man along the X-axis
-    pacY += pacDirectionY * 2; // Move Pac-Man along the Y-axis
+    pacX += pacDirectionX * 2;
+    pacY += pacDirectionY * 2;
 
-    // Change direction when Pac-Man hits canvas edges
-    if (pacX + pacHalfSize > canvas.width || pacX - pacHalfSize < 0) {
-        pacDirectionX = getRandomDirection();
+    // Change direction when Pac-Man reaches near canvas edges
+    if (pacX + pacHalfSize > canvas.width - edgeBuffer || pacX - pacHalfSize < edgeBuffer) {
+        pacDirectionX *= -1;
     }
-    if (pacY + pacHalfSize > canvas.height || pacY - pacHalfSize < 0) {
-        pacDirectionY = getRandomDirection();
+    if (pacY + pacHalfSize > canvas.height - edgeBuffer || pacY - pacHalfSize < edgeBuffer) {
+        pacDirectionY *= -1;
     }
 
     ctx.fillStyle = "black";
